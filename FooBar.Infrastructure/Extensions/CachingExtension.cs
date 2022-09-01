@@ -10,7 +10,7 @@ public static class CachingExtension
     {
         var cacheConfiguration3 = config.GetValue<string>("RedisServer");
 
-        if (IsDevelopment)
+        if (!IsDevelopment)
         {
             var cacheConfiguration = config.GetValue<string>("RedisServer");
             services.AddSingleton(typeof(IApplicationCache<>), typeof(DistribuitedCache<>));
