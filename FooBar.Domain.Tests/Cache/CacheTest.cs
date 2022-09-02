@@ -24,8 +24,8 @@ namespace FooBar.Domain.Tests.Person
         {
             var myId = Guid.NewGuid();
             CommonLanguage language = new CommonLanguage(myId, "C#", "This a great language.", DateTime.Now.AddYears(-20));
-            await _memoryCache.SetValue(myId, language);
-            var mySavedLanguage = await _memoryCache.GetValue(myId);
+            await _memoryCache.SetValueAsync(myId, language);
+            var mySavedLanguage = await _memoryCache.GetValueAsync(myId);
             Assert.IsInstanceOfType(mySavedLanguage, typeof(CommonLanguage));
         }
     }

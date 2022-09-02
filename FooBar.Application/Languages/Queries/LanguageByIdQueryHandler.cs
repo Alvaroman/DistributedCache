@@ -21,7 +21,7 @@ public class LanguageByIdQueryHandler : IRequestHandler<LanguageByIdQuery, Langu
 
     public async Task<LanguageDto> Handle(LanguageByIdQuery request, CancellationToken cancellationToken)
     {
-        var cacheResult = await _cache.GetValue(request.Id);
+        var cacheResult = await _cache.GetValueAsync(request.Id);
         if (cacheResult is not null)
         {
             return _mapper.Map<LanguageDto>(cacheResult);
@@ -30,7 +30,7 @@ public class LanguageByIdQueryHandler : IRequestHandler<LanguageByIdQuery, Langu
         {
             await Task.Delay(3000);
             var language = await _genericRepository.GetByIdAsync(request.Id);
-            await _cache.SetValue(request.Id, language);
+            await _cache.SetValueAsync(request.Id, language);
             return _mapper.Map<LanguageDto>(language);
 
         }

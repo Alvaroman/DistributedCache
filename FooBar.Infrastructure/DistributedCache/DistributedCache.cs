@@ -11,13 +11,13 @@ public class DistribuitedCache<T> : IApplicationCache<T>
     {
         _distributedCache = distributedCache;
     }
-    public async Task<T?> GetValue(Guid cachingId)
+    public async Task<T?> GetValueAsync(Guid cachingId)
     {
         var value = await _distributedCache.GetAsync(cachingId.ToString());
         return value is not null ? FromByteArray(value) : default;
     }
 
-    public async Task SetValue(Guid cachingId, T value) => await _distributedCache.SetAsync(cachingId.ToString(), ToByteArray(value), BuildOptions());
+    public async Task SetValueAsync(Guid cachingId, T value) => await _distributedCache.SetAsync(cachingId.ToString(), ToByteArray(value), BuildOptions());
 
     private T? FromByteArray(byte[]? data) => JsonSerializer.Deserialize<T?>(data);
 
